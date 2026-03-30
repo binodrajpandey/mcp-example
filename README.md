@@ -24,7 +24,7 @@ uv run mcp dev server.py
 ```
 
 Opens a browser UI at `http://localhost:6274`. From there you can:
-- **Tools tab**: call `add`, `multiply`, `save_note`, `delete_note` with custom inputs
+- **Tools tab**: call `save_note`, `delete_note` with custom inputs
 - **Resources tab**: read `notes://list` or `notes://{name}`
 - **Prompts tab**: run `summarize_notes` or `brainstorm` with arguments
 
@@ -34,12 +34,6 @@ List all available tools:
 
 ```bash
 echo '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}' | uv run python server.py
-```
-
-Call a tool (e.g. add 3 + 4):
-
-```bash
-echo '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"add","arguments":{"a":3,"b":4}}}' | uv run python server.py
 ```
 
 ## Connect to Claude Code (CLI)
@@ -56,7 +50,7 @@ Verify it's connected:
 claude mcp list
 ```
 
-Once added, Claude Code can call your tools directly in the chat — just ask it to, e.g. _"save a note called 'ideas'"_ or _"what is 3 + 5?"_.
+Once added, Claude Code can call your tools directly in the chat — just ask it to, e.g. _"save a note called 'ideas'"_.
 
 ## Connect to Claude Desktop
 
@@ -95,10 +89,6 @@ async def main():
     async with stdio_client(server) as (read, write):
         async with ClientSession(read, write) as session:
             await session.initialize()
-
-            # Call a tool
-            result = await session.call_tool("add", {"a": 3, "b": 4})
-            print(result)  # 7.0
 
             # Read a resource
             notes = await session.read_resource("notes://list")
@@ -143,8 +133,6 @@ async for message in runner:
 
 | Tool | Description |
 |------|-------------|
-| `add(a, b)` | Add two numbers |
-| `multiply(a, b)` | Multiply two numbers |
 | `save_note(name, content)` | Save a note |
 | `delete_note(name)` | Delete a note |
 

@@ -18,18 +18,6 @@ mcp = FastMCP("Learning MCP Server")
 # Tools are functions that Claude can invoke to take actions or compute things.
 
 @mcp.tool()
-def add(a: float, b: float) -> float:
-    """Add two numbers."""
-    return a + b
-
-
-@mcp.tool()
-def multiply(a: float, b: float) -> float:
-    """Multiply two numbers."""
-    return a * b
-
-
-@mcp.tool()
 def save_note(name: str, content: str) -> str:
     """Save a note with a given name."""
     notes[name] = content
